@@ -13,6 +13,7 @@ namespace WashingProjekt
         public double valueOfSnac;
         bool isEnough = false;
         public bool cancel = false;
+        public double moneyInput;
 
 
         public string AvaibleSnacks()
@@ -34,17 +35,18 @@ namespace WashingProjekt
         public int i = 0;
         public int temp = -1;
         /// </summary>
-        public void CheckASnack()
+        public string CheckASnack()
         {
+            string checkSnack = "";
             try
             {
                 Console.WriteLine("insert money");
-                prog.moneyInput = double.Parse(Console.ReadLine());
+                moneyInput = double.Parse(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("incorrect input");
-                return;
+                checkSnack = "incorrect input";
+                return checkSnack;
             }
             Console.WriteLine("name of snack that you want");
             prog.whatSnack = Console.ReadLine().ToLower();
@@ -68,23 +70,30 @@ namespace WashingProjekt
                 CheckIfItsEnough();
                 //CancelOrder ask user if he is sure that he wants to proccede
                 //with action, there is no other chance
-                CancelOrder();
-                if (isEnough == true && cancel == false){
+                if (isEnough == true && cancel == false)
+                {
+                    CancelOrder();
                     ReturnRestOfMoney();
                     GiveUserSnack();
                 }
-                else{
-                    Console.WriteLine("Not enough money or action canceled");
+                else
+                {
+                    checkSnack = "Not enough money or action canceled";
                     ReturnRestOfMoney();
+                    return checkSnack;
                 }
-                ///also method for user to add to the money so they can try again
-            }else
-                Console.WriteLine("no snack with that name");
+                return checkSnack;
+            }
+            else
+            {
+                checkSnack = "no snack with that name";
+                return checkSnack;
+            }
         }
 
         bool CheckIfItsEnough()
         {
-            if (valueOfSnac <= prog.moneyInput)
+            if (valueOfSnac <= moneyInput)
                 isEnough = true;
 
             return isEnough;
@@ -94,33 +103,33 @@ namespace WashingProjekt
         //if not user gets his money back
         bool CancelOrder()
         {
-            Console.WriteLine("Do you want to proccede?");
+            Console.WriteLine("Do you want to proccede? yes/no");
             string yesNo = Console.ReadLine().ToLower();
 
+            //Check if user want to procced with order
             if (yesNo != "yes")
                 cancel = true;
 
             return cancel;
-            //Check if user want to procced with order
         }
         void GiveUserSnack()
         {
             //remove snack from snack list
             Snack.Snac.RemoveAt(temp);
-            Console.WriteLine("user got his snack");
         }
-        double ReturnRestOfMoney()
+        public string ReturnRestOfMoney()
         {
+            string moneyReturnedToUser;
             //if user canceled the valueofsnac goes to 0
-            if (cancel == true)
+            if (cancel == true || isEnough == false)
                 valueOfSnac = 0;
 
-            double returnValue = prog.moneyInput - valueOfSnac;
+            double returnValue = moneyInput - valueOfSnac;
 
             moneyErnedToday = moneyErnedToday + valueOfSnac;
-            Console.WriteLine(returnValue);
-            Console.WriteLine(moneyErnedToday);
-            return returnValue;
+
+            moneyReturnedToUser = "rest of the money returned " + returnValue;
+            return moneyReturnedToUser;
         }
         
     }

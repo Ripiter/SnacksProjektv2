@@ -8,7 +8,6 @@ namespace WashingProjekt
 {
     class Program
     {
-        public double moneyInput = 100;
         public static string chooseMenu;
         //whatSnack is userinput for what kind of snack he wants
         public string whatSnack;
@@ -64,21 +63,26 @@ namespace WashingProjekt
         static void Menu()
         {
             Automat automat = new Automat();
-            string a;
+            string outputs;
             switch (chooseMenu)
             {
                 case "1":
                     Console.Clear();
                     Console.WriteLine("All snacks avable:");
                     //shows all avaible snacks
-                     a = automat.AvaibleSnacks();
-                    Console.WriteLine(a);
+                    outputs = automat.AvaibleSnacks();
+                    Console.WriteLine(outputs);
                     break;
                 case "2":
                     //gets users input on what snac he wants
                     //checks if the user put enough money
                     //asks user if he wants to cancel it
                     automat.CheckASnack();
+                    //How much money user will get back
+                    //User gets a snack
+                    outputs = automat.ReturnRestOfMoney();
+                    //Outputs all
+                    Console.WriteLine(outputs);
                     break;
                 default:
                     Console.WriteLine("Wrong input");

@@ -14,7 +14,6 @@ namespace WashingProjekt
         bool overFlow = false;
         public void AddSnack()
         {
-            //while(input.Length < 150)
             try
             {
                 Console.Write("Write name of snack: \r\n");
@@ -50,11 +49,10 @@ namespace WashingProjekt
         }
         void CheckForOverFlow()
         {
-            if (priceOfSnack > 999 || howManySnackAdd > 999)
+            if (priceOfSnack > 99999 || howManySnackAdd > 150)
             {
                 overFlow = true;
             }
-
         }
     }
 }
