@@ -49,7 +49,7 @@ namespace WashingProjekt
         }
         void CheckForOverFlow()
         {
-            if (priceOfSnack > 99999 || howManySnackAdd > 150)
+            if (priceOfSnack > 999999999 || howManySnackAdd > 150)
             {
                 overFlow = true;
             }
