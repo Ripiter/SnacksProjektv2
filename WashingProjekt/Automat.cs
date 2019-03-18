@@ -26,12 +26,8 @@ namespace WashingProjekt
             return snackInfo;
         }
 
-        //Checks if there is a snack that users wants
-        //if the snack is found, it checks if user put enough money
-        //if user did not put enough money return how much its missing
-
         /// <summary>
-        /// Remove later
+        /// Change name later
         public int i = 0;
         public int temp = -1;
         /// </summary>
@@ -41,10 +37,12 @@ namespace WashingProjekt
             try
             {
                 Console.WriteLine("insert money");
+                //GUI
                 moneyInput = double.Parse(Console.ReadLine());
             }
-            catch
+            catch //(FormatException fe)
             {
+              //  throw fe;
                 checkSnack = "incorrect input";
                 return checkSnack;
             }
@@ -78,11 +76,11 @@ namespace WashingProjekt
                 }
                 else
                 {
-                    checkSnack = "Not enough money or action canceled";
                     ReturnRestOfMoney();
+                    checkSnack = "Not enough money or action canceled";
                     return checkSnack;
                 }
-                return checkSnack;
+                return "User got his snack";
             }
             else
             {
@@ -115,20 +113,26 @@ namespace WashingProjekt
         void GiveUserSnack()
         {
             //remove snack from snack list
+            //temp is the index of the snack that user choose
             Snack.Snac.RemoveAt(temp);
         }
-        public string ReturnRestOfMoney()
+        string moneyReturnedToUser;
+        public double ReturnRestOfMoney()
         {
-            string moneyReturnedToUser;
             //if user canceled the valueofsnac goes to 0
             if (cancel == true || isEnough == false)
                 valueOfSnac = 0;
+
 
             double returnValue = moneyInput - valueOfSnac;
 
             moneyErnedToday = moneyErnedToday + valueOfSnac;
 
             moneyReturnedToUser = "rest of the money returned " + returnValue;
+            return returnValue;
+        }
+        public string ManyErnedToday()
+        {
             return moneyReturnedToUser;
         }
         

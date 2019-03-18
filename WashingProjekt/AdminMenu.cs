@@ -8,38 +8,45 @@ namespace WashingProjekt
 {
     class AdminMenu
     {
-        public string nameOfSnack;
-        public static  double priceOfSnack;
-        public static double howManySnackAdd;
         bool overFlow = false;
-        public void AddSnack()
+
+        public void AddSnack(string nameOfSnack, double priceOfSnack, double _howManySnacksAdd)
         {
             try
             {
-                Console.Write("Write name of snack: \r\n");
-                nameOfSnack = Console.ReadLine();
-                Console.Write("Write price of snack: \r\n");
-                priceOfSnack = double.Parse(Console.ReadLine());
-                Console.Write("How many snacs of yours you want you add: \r\n");
-                howManySnackAdd = double.Parse( Console.ReadLine() );
-                CheckForOverFlow();
+                CheckForOverFlow(_howManySnacksAdd); //This method is only here because of rasmus
+
                 if (overFlow == false)
                 {
-                    for (int i = 0; i < howManySnackAdd; i++)
+                    for (int i = 0; i < _howManySnacksAdd; i++)
                     {
                         Snack newSnack = new Snack(nameOfSnack, priceOfSnack);
                     }
-                    Console.WriteLine("Done");
-                }else
-                    Console.WriteLine("Not enough space in automat");
-                
+                    Console.WriteLine("Done"); //will be made to return at some point
+                }
+                else
+                    Console.WriteLine("Not enough space in automat"); //will be made to return at some point
+
             }
-            catch 
+            catch //(FormatException fe)
             {
-              //  Console.WriteLine(e.ToString());
+                //  Console.WriteLine(fe.Message);
+                //  Console.WriteLine(e.ToString());
                 Console.WriteLine("Incorrect input");
             }
         }
+
+        public void ResetMoneyErnedToday()
+        {
+            Console.WriteLine("money earned today: " + Automat.moneyErnedToday);
+            Console.WriteLine("Do you want to reset todays earnings? yes/no");
+            string a = Console.ReadLine().ToLower();
+            if(a == "yes")
+            Automat.moneyErnedToday = 0;
+            else
+                Console.WriteLine("Nothing happens");
+        }
+
         public void HardCodeSnacks()
         {
             Snack charmander = new Snack("charmander", 15);
@@ -47,9 +54,12 @@ namespace WashingProjekt
             Snack squirtle = new Snack("squirtle", 10);
             Snack bulbasaur = new Snack("bulbasaur", 5);
         }
-        void CheckForOverFlow()
+
+
+
+        public void CheckForOverFlow(double howManySnackAddOv)
         {
-            if (priceOfSnack > 999999999 || howManySnackAdd > 150)
+            if (howManySnackAddOv > 150)
             {
                 overFlow = true;
             }

@@ -48,11 +48,32 @@ namespace WashingProjekt
                     admin.HardCodeSnacks();
                     break;
                 case "2":
-                    Console.WriteLine("clears money");
+                    admin.ResetMoneyErnedToday();
                     break;
                 case "3":
                     //adds custom snuc
-                    admin.AddSnack();
+
+                    //Users writes x y z and it goes to the other method to the place where automat is 
+                    //that way we dont have console.writeline in autoamt, so every time we need users input
+                    //we just get it, thru the way before
+                    try
+                    {
+                        Console.Write("Write name of snack: \r\n");
+                        string nameOfSnack = Console.ReadLine();
+                        Console.Write("Write price of snack: \r\n");
+                        double priceOfSnack = double.Parse(Console.ReadLine());
+                        Console.Write("How many snacs of yours you want you add: \r\n");
+                        double howManySnackAdd = double.Parse(Console.ReadLine());
+                        admin.AddSnack(nameOfSnack, priceOfSnack, howManySnackAdd);
+                        admin.CheckForOverFlow(howManySnackAdd);
+                    }catch (FormatException fe)
+                    {
+                        Console.WriteLine(fe.Message);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Expected error have occurred");
+                    }
                     break;
                 default:
                     Console.WriteLine("wrong input");
@@ -63,26 +84,32 @@ namespace WashingProjekt
         static void Menu()
         {
             Automat automat = new Automat();
-            string outputs;
             switch (chooseMenu)
             {
                 case "1":
+            string allSnacks;
                     Console.Clear();
                     Console.WriteLine("All snacks avable:");
                     //shows all avaible snacks
-                    outputs = automat.AvaibleSnacks();
-                    Console.WriteLine(outputs);
+                    allSnacks = automat.AvaibleSnacks();
+                    Console.WriteLine(allSnacks);
                     break;
                 case "2":
+         //   string outputs;
+            string moneyReturning;
+            string a;
                     //gets users input on what snac he wants
                     //checks if the user put enough money
                     //asks user if he wants to cancel it
-                    automat.CheckASnack();
+                    //automat.checkasnack();
+                    a = automat.CheckASnack();
                     //How much money user will get back
                     //User gets a snack
-                    outputs = automat.ReturnRestOfMoney();
+
+                    moneyReturning = automat.ManyErnedToday();
                     //Outputs all
-                    Console.WriteLine(outputs);
+                    Console.WriteLine(a);
+                    Console.WriteLine(moneyReturning);
                     break;
                 default:
                     Console.WriteLine("Wrong input");
