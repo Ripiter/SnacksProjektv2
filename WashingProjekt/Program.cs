@@ -8,9 +8,8 @@ namespace WashingProjekt
 {
     class Program
     {
-        public static string chooseMenu;
+        private static string chooseMenu;
         //whatSnack is userinput for what kind of snack he wants
-        public string whatSnack;
         
         static void Main(string[] args)
         {
@@ -66,6 +65,9 @@ namespace WashingProjekt
                         double howManySnackAdd = double.Parse(Console.ReadLine());
                         admin.AddSnack(nameOfSnack, priceOfSnack, howManySnackAdd);
                         admin.CheckForOverFlow(howManySnackAdd);
+
+                        //There are 2 catch to make me more prepared for future tasks that
+                        //have a lot more problems, and a lot bigger projek
                     }catch (FormatException fe)
                     {
                         Console.WriteLine(fe.Message);

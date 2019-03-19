@@ -8,12 +8,12 @@ namespace WashingProjekt
 {
     class Automat
     {
-        public Program prog = new Program();
         public static double moneyErnedToday;
-        public double valueOfSnac;
+        double valueOfSnac;
         bool isEnough = false;
-        public bool cancel = false;
-        public double moneyInput;
+        bool cancel = false;
+        double moneyInput;
+        string whatSnack;
 
 
         public string AvaibleSnacks()
@@ -28,8 +28,8 @@ namespace WashingProjekt
 
         /// <summary>
         /// Change name later
-        public int i = 0;
-        public int temp = -1;
+        int i = 0;
+        int temp = -1;
         /// </summary>
         public string CheckASnack()
         {
@@ -47,12 +47,12 @@ namespace WashingProjekt
                 return checkSnack;
             }
             Console.WriteLine("name of snack that you want");
-            prog.whatSnack = Console.ReadLine().ToLower();
+            whatSnack = Console.ReadLine().ToLower();
 
             bool isFound = false;
             foreach (Snack snack in Snack.Snac)
             {
-                if (prog.whatSnack == snack.NameOfSnack)
+                if (whatSnack == snack.NameOfSnack)
                 {
                     isFound = true;
                     //We put the price of the snac that user wants into the valueofscan
