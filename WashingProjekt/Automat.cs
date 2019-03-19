@@ -8,13 +8,21 @@ namespace WashingProjekt
 {
     class Automat
     {
+        #region variables
         public static double moneyErnedToday;
         double valueOfSnac;
         bool isEnough = false;
         bool cancel = false;
         double moneyInput;
+        int i = 0;      //Used to find index of the snack
+        int temp = -1;  //Used to find index of the snack
+        bool isFound = false;
+        string moneyReturnedToUser; //Returns string with the amount
+        #endregion
 
-
+        /// <summary>
+        /// Shows all avaible snacks in Snack list
+        /// </summary>
         public string AvaibleSnacks()
         {
             string snackInfo = "";
@@ -25,10 +33,9 @@ namespace WashingProjekt
             return snackInfo;
         }
 
+
         /// <summary>
-        /// Change name later
-        int i = 0;
-        int temp = -1;
+        /// Amount of the money user inserted into the machine
         /// </summary>
         public double CheckASnack(double userMoney)
         {
@@ -36,8 +43,10 @@ namespace WashingProjekt
 
             return moneyInput;
         }
-            bool isFound = false;
 
+        /// <summary>
+        /// Checks for the snack in Snack list
+        /// </summary>
         public void NameOfSnack(string nameOfTheSnack) {
 
             foreach (Snack snack in Snack.Snac)
@@ -52,6 +61,10 @@ namespace WashingProjekt
                 i++;
             }
         }
+        /// <summary>
+        /// When snack is found we ask user if he wants to cancel
+        /// </summary>
+
         public string IsFound(string cancelOrder) {
             string checkSnack = "";
             if (isFound == true)
@@ -60,7 +73,7 @@ namespace WashingProjekt
                 CheckIfItsEnough();
                 //CancelOrder ask user if he is sure that he wants to proccede
                 //with action, there is no other chance
-                    CancelOrder(cancelOrder);
+                CancelOrder(cancelOrder);
                 if (isEnough == true && cancel == false)
                 {
                     ReturnRestOfMoney();
@@ -105,8 +118,7 @@ namespace WashingProjekt
             //temp is the index of the snack that user choose
             Snack.Snac.RemoveAt(temp);
         }
-        string moneyReturnedToUser;
-        public double ReturnRestOfMoney()
+        double ReturnRestOfMoney()
         {
             //if user canceled the valueofsnac goes to 0
             if (cancel == true || isEnough == false)

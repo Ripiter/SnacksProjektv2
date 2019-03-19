@@ -83,16 +83,6 @@ namespace WashingProjekt
             }
         }
 
-
-
-
-
-
-
-
-
-
-
         static void Menu()
         {
             Automat automat = new Automat();
@@ -111,27 +101,40 @@ namespace WashingProjekt
                 case "2":
                     string moneyReturning;
                     string b;
-                    //gets users input on what snac he wants
-                    //checks if the user put enough money
-                    //asks user if he wants to cancel it
-                    //automat.checkasnack();
 
-                    Console.WriteLine("inset money");
-                    double checkTest = double.Parse(Console.ReadLine());
-                    automat.CheckASnack(checkTest);
+                    //Gets users money
+                    //checkTest is put into moneyInput
+                    try
+                    {
+                        Console.WriteLine("inset money");
+                        double moneyInsered = double.Parse(Console.ReadLine());
+                        automat.CheckASnack(moneyInsered);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("incorrect input");
+                        return;
+                    }
 
+                    //Asks user what snack he/she wants
                     Console.WriteLine("name of snack");
-                    string nameTest = Console.ReadLine();
-                    automat.NameOfSnack(nameTest);
+                    string nameOfSnack = Console.ReadLine();
+                    automat.NameOfSnack(nameOfSnack);
 
-
+                    //Checks if user wants to procede with order
+                    //Possible outputs
+                    ///"Not enough money or action canceled"
+                    ///"User got his snack"
+                    ///"no snack with that name"
                     Console.WriteLine("Do you want to procede? yes/no");
                     string isfoundYesNo = Console.ReadLine(); ;
                     b = automat.IsFound(isfoundYesNo);
-                    //How much money user will get back
-                    //User gets a snack
 
+                    //How much money will user get back
+                    //Outputs
+                    ///"rest of the money returned " + returnValue
                     moneyReturning = automat.ManyErnedToday();
+
                     //Outputs all
                     Console.WriteLine(b);
                     Console.WriteLine(moneyReturning);
