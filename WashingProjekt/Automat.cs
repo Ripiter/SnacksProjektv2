@@ -13,7 +13,6 @@ namespace WashingProjekt
         bool isEnough = false;
         bool cancel = false;
         double moneyInput;
-        string whatSnack;
 
 
         public string AvaibleSnacks()
@@ -31,28 +30,19 @@ namespace WashingProjekt
         int i = 0;
         int temp = -1;
         /// </summary>
-        public string CheckASnack()
+        public double CheckASnack(double userMoney)
         {
-            string checkSnack = "";
-            try
-            {
-                Console.WriteLine("insert money");
-                //GUI
-                moneyInput = double.Parse(Console.ReadLine());
-            }
-            catch //(FormatException fe)
-            {
-              //  throw fe;
-                checkSnack = "incorrect input";
-                return checkSnack;
-            }
-            Console.WriteLine("name of snack that you want");
-            whatSnack = Console.ReadLine().ToLower();
+            this.moneyInput = userMoney;
 
+            return moneyInput;
+        }
             bool isFound = false;
+
+        public void NameOfSnack(string nameOfTheSnack) {
+
             foreach (Snack snack in Snack.Snac)
             {
-                if (whatSnack == snack.NameOfSnack)
+                if (nameOfTheSnack == snack.NameOfSnack)
                 {
                     isFound = true;
                     //We put the price of the snac that user wants into the valueofscan
@@ -61,16 +51,18 @@ namespace WashingProjekt
                 }
                 i++;
             }
-
+        }
+        public string IsFound(string cancelOrder) {
+            string checkSnack = "";
             if (isFound == true)
             {
                 //Checks if the user put enough money to autmat
                 CheckIfItsEnough();
                 //CancelOrder ask user if he is sure that he wants to proccede
                 //with action, there is no other chance
+                    CancelOrder(cancelOrder);
                 if (isEnough == true && cancel == false)
                 {
-                    CancelOrder();
                     ReturnRestOfMoney();
                     GiveUserSnack();
                 }
@@ -99,13 +91,10 @@ namespace WashingProjekt
 
         //Asks user if he wants to proccede with the order
         //if not user gets his money back
-        bool CancelOrder()
+        bool CancelOrder(string ProccedeYesNo)
         {
-            Console.WriteLine("Do you want to proccede? yes/no");
-            string yesNo = Console.ReadLine().ToLower();
-
             //Check if user want to procced with order
-            if (yesNo != "yes")
+            if (ProccedeYesNo != "yes")
                 cancel = true;
 
             return cancel;

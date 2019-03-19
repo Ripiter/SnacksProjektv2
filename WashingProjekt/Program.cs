@@ -83,34 +83,57 @@ namespace WashingProjekt
             }
         }
 
+
+
+
+
+
+
+
+
+
+
         static void Menu()
         {
             Automat automat = new Automat();
             switch (chooseMenu)
             {
                 case "1":
-            string allSnacks;
+                    string allSnacks;
                     Console.Clear();
                     Console.WriteLine("All snacks avable:");
                     //shows all avaible snacks
                     allSnacks = automat.AvaibleSnacks();
                     Console.WriteLine(allSnacks);
                     break;
+
+
                 case "2":
-         //   string outputs;
-            string moneyReturning;
-            string a;
+                    string moneyReturning;
+                    string b;
                     //gets users input on what snac he wants
                     //checks if the user put enough money
                     //asks user if he wants to cancel it
                     //automat.checkasnack();
-                    a = automat.CheckASnack();
+
+                    Console.WriteLine("inset money");
+                    double checkTest = double.Parse(Console.ReadLine());
+                    automat.CheckASnack(checkTest);
+
+                    Console.WriteLine("name of snack");
+                    string nameTest = Console.ReadLine();
+                    automat.NameOfSnack(nameTest);
+
+
+                    Console.WriteLine("Do you want to procede? yes/no");
+                    string isfoundYesNo = Console.ReadLine(); ;
+                    b = automat.IsFound(isfoundYesNo);
                     //How much money user will get back
                     //User gets a snack
 
                     moneyReturning = automat.ManyErnedToday();
                     //Outputs all
-                    Console.WriteLine(a);
+                    Console.WriteLine(b);
                     Console.WriteLine(moneyReturning);
                     break;
                 default:
